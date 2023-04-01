@@ -16,6 +16,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    ui->stackedWidget -> setCurrentIndex(1);
+    ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->menu);
+}
