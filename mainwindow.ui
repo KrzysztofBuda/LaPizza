@@ -121,10 +121,24 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="stanZamowienia"/>
+      <widget class="QWidget" name="stanZamowienia">
+       <widget class="QPushButton" name="wrocButton2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wróć</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="menu">
        <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0" colspan="2">
+        <item row="1" column="0" colspan="2">
          <widget class="QScrollArea" name="scrollArea">
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -399,6 +413,13 @@ Ser</string>
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="wrocButton">
+          <property name="text">
+           <string>Wróć</string>
+          </property>
          </widget>
         </item>
        </layout>

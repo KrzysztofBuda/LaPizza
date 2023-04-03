@@ -24,3 +24,15 @@ void MainWindow::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->menu);
 }
+
+void MainWindow::on_wrocButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
+}
+
+
+void MainWindow::on_wrocButton2_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
+}
+
