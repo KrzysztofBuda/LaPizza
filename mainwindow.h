@@ -20,6 +20,10 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_wrocButton_clicked();
+
+    void on_wrocButton2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
