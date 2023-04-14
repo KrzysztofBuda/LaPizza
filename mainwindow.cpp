@@ -36,3 +36,20 @@ void MainWindow::on_wrocButton2_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 
+void MainWindow::on_podsumowanieButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->Podsumowanie);
+}
+
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->menu);
+}
+
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    ui->textEdit->setText("Ala ma kota");
+}
+
