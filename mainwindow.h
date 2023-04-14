@@ -24,6 +24,12 @@ private slots:
 
     void on_wrocButton2_clicked();
 
+    void on_podsumowanieButton_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
