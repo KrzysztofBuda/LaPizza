@@ -14,13 +14,13 @@ public:
     double cena;
 
     string nazwaPizzy() {
-
+        return nazwa;
     }
     double cenaPizzy() {
-
+        return cena;
     }
     int idPizzy() {
-
+        return id;
     }
 };
 
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     w.show();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/Users/bartek/Downloads/LaPizza-main/db");
+    db.setDatabaseName("/Users/bartek/Downloads/LaPizza-main/pizzaBaza");
     db.open();
     if(db.isOpen())
     {
