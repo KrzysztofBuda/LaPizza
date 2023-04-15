@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <fstream>
 #include <cstdlib>
-#include <QtSql>
 #include <QDebug>
 #include <sqlite3.h>
 #include <iostream>
@@ -110,7 +109,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const char* sql_insert = "INSERT INTO mytable (nazwa_pizzy, cena) VALUES ('Pepperoni', 23.00)";
+    const char* sql_insert = "INSERT INTO mytable (nazwa_pizzy, cena) VALUES ('Margherita', 20.00)";
     rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Nie udało się dodać rekordu: " << sqlite3_errmsg(db) << std::endl;
@@ -121,9 +120,6 @@ int main(int argc, char *argv[])
     sqlite3_close(db);
     std::cout << "Rekord został dodany do bazy danych" << std::endl;
 */
-
-
-
 
     Pizza margherita;
     margherita.cena = 20,00;
