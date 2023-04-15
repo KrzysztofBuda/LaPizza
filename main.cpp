@@ -4,7 +4,8 @@
 #include <cstdlib>
 #include <QtSql>
 #include <QDebug>
-#include "sqlite3/sqlite3.h"
+#include <sqlite3.h>
+#include <iostream>
 using namespace std;
 
 class Pizza{
@@ -93,26 +94,33 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/Users/bartek/Downloads/LaPizza-main/pizzaBaza");
-    db.open();
-    if(db.isOpen())
-    {
-        qDebug() << "DB OPENED";
-    }
-    else
-    {
-        qDebug() << "DB NOT OPENED";
+    /*sqlite3* db;
+    int rc = sqlite3_open("/Users/bartek/Downloads/LaPizza-main/mydatabase.db", &db);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
+                sqlite3_close(db);
+        return 1;
     }
 
-    QSqlQuery q;
-    QString data = "";
-    q.exec("SELECT * FROM tb1");
-
-    while(q.next()) {
-        data += q.value(0).toString() + "-";
-        data += q.value(1).toString() + "\n";
+    const char* sql_create_table = "CREATE TABLE IF NOT EXISTS mytable (id INTEGER PRIMARY KEY, nazwa_pizzy TEXT, cena NUMERIC)";
+    rc = sqlite3_exec(db, sql_create_table, nullptr, nullptr, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Nie udało się utworzyć tabeli: " << sqlite3_errmsg(db) << std::endl;
+                sqlite3_close(db);
+        return 1;
     }
+
+    const char* sql_insert = "INSERT INTO mytable (nazwa_pizzy, cena) VALUES ('Pepperoni', 23.00)";
+    rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Nie udało się dodać rekordu: " << sqlite3_errmsg(db) << std::endl;
+                sqlite3_close(db);
+        return 1;
+    }
+
+    sqlite3_close(db);
+    std::cout << "Rekord został dodany do bazy danych" << std::endl;
+*/
 
 
 
@@ -142,6 +150,5 @@ int main(int argc, char *argv[])
     vege.id = 5;
     vege.nazwa = "Vege";
 
-    db.close();
     return a.exec();
 }

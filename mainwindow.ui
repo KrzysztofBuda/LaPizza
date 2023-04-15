@@ -169,14 +169,14 @@
        <widget class="QPushButton" name="pushButton_6">
         <property name="geometry">
          <rect>
-          <x>130</x>
+          <x>19</x>
           <y>390</y>
-          <width>100</width>
+          <width>351</width>
           <height>32</height>
          </rect>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string>Dodaj rekord do bazy danychi wyświetl tekst</string>
         </property>
        </widget>
       </widget>
