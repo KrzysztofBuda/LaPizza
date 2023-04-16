@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Pizza.h \
     mainwindow.h
 
 FORMS += \
