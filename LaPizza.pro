@@ -1,6 +1,7 @@
 QT       += core gui
 QT += sql
-LIBS += -lsqlite3
+INCLUDEPATH += "sqlite3\sqlite3.h"
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,11 +13,15 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sqlite3/shell.c \
+    sqlite3/sqlite3.c
 
 HEADERS += \
     Pizza.h \
-    mainwindow.h
+    mainwindow.h \
+    sqlite3/sqlite3.h \
+    sqlite3/sqlite3ext.h
 
 FORMS += \
     mainwindow.ui

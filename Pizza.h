@@ -1,7 +1,7 @@
 #ifndef PIZZA_H
 #define PIZZA_H
 #include <QString>
-#include <sqlite3.h>
+#include "sqlite3\sqlite3.h"
 #include <iostream>
 #include <cstdlib>
 

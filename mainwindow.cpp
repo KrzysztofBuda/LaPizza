@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "Pizza.h"
 #include "ui_mainwindow.h"
-#include <sqlite3.h>
+#include "sqlite3\sqlite3.h"
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
