@@ -1,11 +1,14 @@
 #ifndef PIZZA_H
 #define PIZZA_H
 #include <QString>
-#include "sqlite3\sqlite3.h"
 #include <iostream>
 #include <cstdlib>
+#include <sqlite3.h>
 
 #endif // PIZZA_H
+
+using namespace std;
+
 
 class Pizza{
 public:
@@ -28,7 +31,7 @@ class Zamowienie{
 public:
     double cena;
     int nr_zamówienia;
-    double wartosc = 21;
+    double wartosc = 500;
 
     void dodawanie() {
         sqlite3* db;
@@ -65,7 +68,7 @@ public:
             sqlite3_close(db);
         }
 
-        const char* sql_insert = "DELETE FROM zamowienia WHERE id = 2";
+        const char* sql_insert = "DELETE FROM zamowienia WHERE id = 12";
         rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
         if (rc != SQLITE_OK) {
             std::cerr << "Nie udało się usunąć rekordu: " << sqlite3_errmsg(db) << std::endl;
@@ -147,7 +150,7 @@ public:
     double suma;
     string rodzaj_płatności;
 
-    int nr_płatności() {
+    void nr_płatności() {
 
     }
 

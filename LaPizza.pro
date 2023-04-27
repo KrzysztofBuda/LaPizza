@@ -1,11 +1,9 @@
 QT       += core gui
-QT += sql
-INCLUDEPATH += "sqlite3\sqlite3.h"
-
+LIBS += -L$$PWD/libs -lsqlite3
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -13,15 +11,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    sqlite3/shell.c \
-    sqlite3/sqlite3.c
+    mainwindow.cpp
 
 HEADERS += \
     Pizza.h \
     mainwindow.h \
-    sqlite3/sqlite3.h \
-    sqlite3/sqlite3ext.h
+    sqlite3.h
 
 FORMS += \
     mainwindow.ui
