@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Ustawienie pierwszego okna
+    ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 
 MainWindow::~MainWindow()
@@ -60,12 +63,6 @@ void MainWindow::on_pushButton_9_clicked()
 {
     Zamowienie a;
     a.dodawanie();
-}
-
-
-void MainWindow::on_pushButton_10_clicked()
-{
-
 }
 
 

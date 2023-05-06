@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 class Pizza{
 public:
     string nazwa;
@@ -35,7 +34,7 @@ public:
 
     void dodawanie() {
         sqlite3* db;
-        int rc = sqlite3_open("/Users/bartek/Downloads/LaPizza-main/mydatabase.db", &db);
+        int rc = sqlite3_open("mydatabase.db", &db);
         if (rc != SQLITE_OK) {
             std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
             sqlite3_close(db);
@@ -62,7 +61,7 @@ public:
 
     void usuwanie() {
         sqlite3* db;
-        int rc = sqlite3_open("/Users/bartek/Downloads/LaPizza-main/mydatabase.db", &db);
+        int rc = sqlite3_open("mydatabase.db", &db);
         if (rc != SQLITE_OK) {
             std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
             sqlite3_close(db);
@@ -81,7 +80,7 @@ public:
 
     void anulowanie() {
         sqlite3* db;
-        int rc = sqlite3_open("/Users/bartek/Downloads/LaPizza-main/mydatabase.db", &db);
+        int rc = sqlite3_open("mydatabase.db", &db);
         if (rc != SQLITE_OK) {
             std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
             sqlite3_close(db);
@@ -104,7 +103,7 @@ public:
 
     void dodawanie_skladnikow() {
         sqlite3* db;
-        int rc = sqlite3_open("/Users/bartek/Downloads/LaPizza-main/mydatabase.db", &db);
+        int rc = sqlite3_open("mydatabase.db", &db);
         if (rc != SQLITE_OK) {
             std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
             sqlite3_close(db);
