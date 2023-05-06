@@ -10,14 +10,35 @@
     <height>534</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="toolTipDuration">
+   <number>-1</number>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="pierwszeOkno">
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_2">
@@ -53,7 +74,7 @@
              <number>0</number>
             </property>
             <property name="text">
-             <string>Witam w LaPizza. Codziennie świrze składniki oraz darmowa dostawa</string>
+             <string>Witam w LaPizza. Codziennie świerze składniki oraz darmowa dostawa</string>
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>
@@ -98,7 +119,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Menu</string>
+               <string>Zamawianie</string>
               </property>
              </widget>
             </item>
@@ -111,7 +132,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Stan Zamówienia</string>
+               <string>Panel pracownika</string>
               </property>
              </widget>
             </item>
@@ -135,302 +156,384 @@
          <string>Wróć</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>300</y>
+          <width>261</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Dodaj składnik do bazy danych</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="menu">
-       <layout class="QFormLayout" name="formLayout">
-        <item row="1" column="0" colspan="2">
-         <widget class="QScrollArea" name="scrollArea">
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOn</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>426</width>
-             <height>750</height>
-            </rect>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QCheckBox" name="checkBox_3">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>50</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                  <weight>50</weight>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="contextMenuPolicy">
-                 <enum>Qt::NoContextMenu</enum>
-                </property>
-                <property name="whatsThis">
-                 <string/>
-                </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhNone</set>
-                </property>
-                <property name="text">
-                 <string>Margaritta
-Ser</string>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <property name="tristate">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_9">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>375</width>
-                  <height>50</height>
-                 </size>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::StrongFocus</enum>
-                </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="autoFillBackground">
-                 <bool>false</bool>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">text-align: left;</string>
-                </property>
-                <property name="inputMethodHints">
-                 <set>Qt::ImhNone</set>
-                </property>
-                <property name="text">
-                 <string>   Hawajska
-   Ser</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QGridLayout" name="gridLayout_6">
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="pushButton_14">
-                  <property name="minimumSize">
-                   <size>
-                    <width>300</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">text-align: left;</string>
-                  </property>
-                  <property name="text">
-                   <string>   Diavola
-   Ser</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QCheckBox" name="checkBox_18">
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="accessibleName">
-                   <string>0</string>
-                  </property>
-                  <property name="text">
-                   <string>Koszyk</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QPushButton" name="pushButton_19">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QPushButton" name="pushButton_17">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QPushButton" name="pushButton_13">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QPushButton" name="pushButton_16">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QPushButton" name="pushButton_12">
-                  <property name="text">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_15">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_11">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_10">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_21">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_23">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_22">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_7">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_20">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_6">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_18">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_8">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_5">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="wrocButton">
-          <property name="text">
-           <string>Wróć</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>418</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>399</width>
+           <height>389</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>375</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhNone</set>
+            </property>
+            <property name="text">
+             <string>   Margherita
+   Sos pomidorowy, Ser, Oregano</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_10">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>375</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhNone</set>
+            </property>
+            <property name="text">
+             <string>   Capriciosa
+   Sos pomidorowy, Ser, Szynka, Oregano</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>375</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhNone</set>
+            </property>
+            <property name="text">
+             <string>   Pepperoni
+   Sos pomidorowy, Ser, Pepperoni, Oregano</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>375</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhNone</set>
+            </property>
+            <property name="text">
+             <string>   Hawajska
+   Sos pomidorowy, Ser, Szynka, Ananas</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>375</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left;</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhNone</set>
+            </property>
+            <property name="text">
+             <string>   Vege
+   Sos pomidorowy, Wegański ser, Wegańska szynka</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="wrocButton">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>0</y>
+          <width>62</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wróć</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="podsumowanieButton">
+        <property name="geometry">
+         <rect>
+          <x>22</x>
+          <y>445</y>
+          <width>381</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>375</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="statusTip">
+         <string/>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">text-align: left;</string>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhNone</set>
+        </property>
+        <property name="text">
+         <string>                             Podsumowanie zamówienia</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+       </widget>
       </widget>
-      <widget class="QWidget" name="page_3"/>
-      <widget class="QWidget" name="page_4"/>
+      <widget class="QWidget" name="Podsumowanie">
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>370</y>
+          <width>411</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Usuń z zamówienia</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>430</y>
+          <width>411</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Przejdź do płatności</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>wróć</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_7">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>310</y>
+          <width>411</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Anuluj zamówienie</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="usuwanie">
+       <widget class="QPushButton" name="wrocButton3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>10</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>wróć</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_8">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>100</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Usuń pozycję</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="page_5"/>
       <widget class="QWidget" name="page_6"/>
-      <widget class="QWidget" name="page_7"/>
+      <widget class="QWidget" name="widget"/>
       <widget class="QWidget" name="page_8"/>
-      <widget class="QWidget" name="page_9"/>
+      <widget class="QWidget" name="page_9">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

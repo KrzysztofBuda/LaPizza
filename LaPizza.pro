@@ -1,8 +1,9 @@
 QT       += core gui
+LIBS += -L$$PWD/libs -lsqlite3
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -13,7 +14,9 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    Pizza.h \
+    mainwindow.h \
+    sqlite3.h
 
 FORMS += \
     mainwindow.ui
