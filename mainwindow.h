@@ -1,7 +1,16 @@
+//mainwindow.h
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <stdio.h>
+#include <iostream>
 #include <QMainWindow>
+#include <QListWidget>
+#include <QListWidgetItem>
+
+#include "databasemanager.h"
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +24,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private slots:
     void on_pushButton_2_clicked();
 
@@ -24,7 +34,30 @@ private slots:
 
     void on_wrocButton2_clicked();
 
+    void on_podsumowanieButton_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_wrocButton3_clicked();
+
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_12_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
+    DatabaseManager* m_dbManager;
+    QList<QString> listaZamowien; // Lista zamówień
+    QListWidget* listaZamowienWidget; // List Widget dla zamówień
 };
 #endif // MAINWINDOW_H
