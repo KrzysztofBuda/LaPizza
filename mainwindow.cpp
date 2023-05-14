@@ -4,9 +4,11 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include "Pizza.h"
+
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,11 +38,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     listaZamowienWidget = ui->listaZamowienWidget;
 
+    // Ustawienie pierwszego okna
+    ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
 
     m_dbManager->closeDatabase();
 }
@@ -118,7 +124,6 @@ void MainWindow::on_pushButton_8_clicked()
     a.usuwanie();
 }
 
-
 void MainWindow::on_pushButton_12_clicked()
 {
     qDebug() << "Przycisk został kliknięty.";
@@ -179,4 +184,3 @@ void MainWindow::on_pushButton_4_clicked()
         qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
     }
 }
-

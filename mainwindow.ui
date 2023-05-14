@@ -496,6 +496,7 @@
          <string>Anuluj zamówienie</string>
         </property>
        </widget>
+
        <widget class="QListWidget" name="listaZamowienWidget">
         <property name="geometry">
          <rect>
