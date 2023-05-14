@@ -30,7 +30,7 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -494,6 +494,17 @@
         </property>
         <property name="text">
          <string>Anuluj zamówienie</string>
+        </property>
+       </widget>
+
+       <widget class="QListWidget" name="listaZamowienWidget">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>411</width>
+          <height>251</height>
+         </rect>
         </property>
        </widget>
       </widget>
