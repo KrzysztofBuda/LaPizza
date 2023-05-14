@@ -17,9 +17,7 @@ SOURCES += \
 
 HEADERS += \
     Pizza.h \
-
     databasemanager.h \
-
     mainwindow.h \
     sqlite3.h
 
