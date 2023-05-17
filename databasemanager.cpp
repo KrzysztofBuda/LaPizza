@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QCoreApplication>
 #include <QDir>
+using namespace std;
 
 
 DatabaseManager::DatabaseManager()
@@ -13,7 +14,7 @@ DatabaseManager::DatabaseManager()
 
 bool DatabaseManager::openDatabase()
 {
-    QString lokalizacjadb = "D:/telekomunikacja/Semestry/Moje/semestr 6/Programowanie Obiektowe/Projekt/LaPizza-main";
+    QString lokalizacjadb = "/Users/bartek/Documents/Programowanie obiektowe/LaPizza-main";
 
     QString appFilePath = QCoreApplication::applicationFilePath();
     QString appDirPath = QFileInfo(appFilePath).absoluteDir().path();
@@ -76,6 +77,40 @@ bool DatabaseManager::insertData(const QString& data)
     return true;
 }
 
+string DatabaseManager::getPizzaName(int id)
+{
+    string nazwa;
+
+    QSqlQuery query;
+    query.prepare("SELECT nazwa FROM pizza WHERE id = :id");
+    query.bindValue(":id", id);
+
+    if (query.exec() && query.next()) {
+        nazwa = query.value(0).toString().toStdString();
+    } else {
+        qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+    }
+
+    return nazwa;
+}
+
+double DatabaseManager::getPizzaPrice(int id)
+{
+    double price = 0.0;
+
+    QSqlQuery query;
+    query.prepare("SELECT cena FROM pizza WHERE id = :id");
+    query.bindValue(":id", id);
+
+    if (query.exec() && query.next()) {
+            price = query.value(0).toDouble();
+        } else if (query.lastError().isValid()) {
+            qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+        } else {
+            qDebug() << "Brak pizzy o podanym identyfikatorze:" << id;
+        }
+    return price;
+}
 
 void DatabaseManager::closeDatabase()
 {

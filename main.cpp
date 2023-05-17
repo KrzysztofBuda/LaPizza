@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <QDebug>
 #include <iostream>
-#include "Pizza.h"
+#include "pizza.h"
 
 using namespace std;
 

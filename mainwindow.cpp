@@ -3,10 +3,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
-#include "Pizza.h"
+#include "pizza.h"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -88,8 +89,12 @@ void MainWindow::on_pushButton_6_clicked()
 
 void MainWindow::on_pushButton_9_clicked()
 {
-    Zamowienie a;
-    a.dodawanie();
+    int id=1;
+    Pizza p1;
+    double price = p1.cenaPizzy(id);
+    string namee = p1.nazwaPizzy(id);
+    listaZamowienWidget->addItem(QString::fromStdString(namee));
+    qDebug() << price;
 }
 
 
@@ -114,33 +119,25 @@ void MainWindow::on_wrocButton3_clicked()
 
 void MainWindow::on_pushButton_8_clicked()
 {
-    Zamowienie a;
-    a.usuwanie();
+
 }
 
 
 void MainWindow::on_pushButton_12_clicked()
 {
-    qDebug() << "Przycisk został kliknięty.";
-
-    // Pobierz nazwę pizzy
-    QString nazwaPizzy = "Margaritta";
-
-    // Dodaj nazwę pizzy do listy
-    listaZamowienWidget->addItem(nazwaPizzy);
-
-    // Dodatkowe operacje związane z zapisem do bazy danych, numerem zamówienia itp.
-
-    // Zapisz do bazy danych wszystkie pizze w koszyku
-    // saveAllPizzasToDatabase();
-
-    // Wyczyść pola formularza lub wykonaj inne operacje, jeśli to konieczne
-
-    qDebug() << "Po dodaniu pizzy do listy";
+    int id=4;
+    Pizza p4;
+    double price = p4.cenaPizzy(id);
+    string namee = p4.nazwaPizzy(id);
+    listaZamowienWidget->addItem(QString::fromStdString(namee));
+    qDebug() << price;
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
+    DatabaseManager d1;
+    d1.openDatabase();
+
     qDebug() << "Przycisk został kliknięty.";
 
     // Tworzenie tabeli zamówień, jeśli nie istnieje
@@ -164,7 +161,7 @@ void MainWindow::on_pushButton_4_clicked()
             pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
         }
         QString pozycje = pozycjeZamowienia.join(", ");
-
+        qDebug() << pozycje;
         // Wstawianie danych do tabeli zamówień
         QSqlQuery insertDataQuery;
         insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje) VALUES (:numer, :pozycje)");
@@ -178,5 +175,40 @@ void MainWindow::on_pushButton_4_clicked()
     } else {
         qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
     }
+
+    d1.closeDatabase();
+}
+
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    int id=2;
+    Pizza p2;
+    double price = p2.cenaPizzy(id);
+    string namee = p2.nazwaPizzy(id);
+    listaZamowienWidget->addItem(QString::fromStdString(namee));
+    qDebug() << price;
+}
+
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    int id=3;
+    Pizza p3;
+    double price = p3.cenaPizzy(id);
+    string namee = p3.nazwaPizzy(id);
+    listaZamowienWidget->addItem(QString::fromStdString(namee));
+    qDebug() << price;
+}
+
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    int id=5;
+    Pizza p5;
+    double price = p5.cenaPizzy(id);
+    string namee = p5.nazwaPizzy(id);
+    listaZamowienWidget->addItem(QString::fromStdString(namee));
+    qDebug() << price;
 }
 

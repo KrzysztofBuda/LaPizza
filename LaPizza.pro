@@ -13,12 +13,13 @@ CONFIG += c++17
 SOURCES += \
     databasemanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    pizza.cpp
 
 HEADERS += \
-    Pizza.h \
     databasemanager.h \
     mainwindow.h \
+    pizza.h \
     sqlite3.h
 
 FORMS += \
