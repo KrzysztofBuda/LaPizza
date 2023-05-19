@@ -30,11 +30,7 @@ public:
 
     void usuwanie();
 
-    void anulowanie();
-
     void oblicz_kwote();
-
-    void dodawanie_skladnikow();
 };
 
 class Klient{

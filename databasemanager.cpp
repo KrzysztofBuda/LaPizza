@@ -38,8 +38,6 @@ bool DatabaseManager::createTable()
                                "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                                "nazwa TEXT)";
 
-    qDebug() << "Zapytanie tworzenia tabeli:" << createTableQuery;
-
     if (!query.exec(createTableQuery)) {
         qDebug() << "Błąd tworzenia tabeli:" << query.lastError().text();
         return false;
@@ -64,8 +62,6 @@ bool DatabaseManager::insertData(const QString& data)
     QSqlQuery query;
     query.prepare("INSERT INTO pizza (nazwa) VALUES (?)");
     query.addBindValue(data);
-
-    qDebug() << "Przed wykonaniem zapytania INSERT:" << query.lastQuery();
 
     if (!query.exec()) {
         qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
@@ -110,6 +106,23 @@ double DatabaseManager::getPizzaPrice(int id)
             qDebug() << "Brak pizzy o podanym identyfikatorze:" << id;
         }
     return price;
+}
+
+bool DatabaseManager::delivery(int id, int amount)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE skladniki SET ilosc = ilosc + :amount WHERE id=:id");
+    query.bindValue(":id", id);
+    query.bindValue(":amount", amount);
+
+    if (!query.exec()) {
+        qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+        return false;
+    }
+
+    qDebug() << "Zapytanie Uppdate wykonane poprawnie";
+
+    return true;
 }
 
 void DatabaseManager::closeDatabase()

@@ -18,6 +18,7 @@ public:
     void closeDatabase();
     string getPizzaName(int id);
     double getPizzaPrice(int id);
+    bool delivery(int id, int amount);
 
 private:
     static QSqlDatabase m_database; // Przeniesiona deklaracja zmiennej m_database

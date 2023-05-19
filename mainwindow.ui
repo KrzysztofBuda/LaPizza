@@ -27,10 +27,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -159,14 +159,93 @@
        <widget class="QPushButton" name="pushButton_6">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>300</y>
-          <width>261</width>
-          <height>32</height>
+          <x>70</x>
+          <y>250</y>
+          <width>300</width>
+          <height>35</height>
          </rect>
         </property>
         <property name="text">
          <string>Dodaj składnik do bazy danych</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>200</y>
+          <width>100</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>200</y>
+          <width>180</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>sos</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ser</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>szynka</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>oregano</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pepperoni</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ananas</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>weganski ser</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>weganska szynka</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>45</x>
+          <y>120</y>
+          <width>360</width>
+          <height>60</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Witaj w panelu dodawania składników!&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Gdy przyjedzie dostawa dodaj składniki do bazy danych&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>

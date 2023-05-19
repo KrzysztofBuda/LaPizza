@@ -82,8 +82,13 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    Zamowienie a;
-    a.dodawanie_skladnikow();
+    int id = (ui->comboBox->currentIndex()) + 1;
+    //qDebug() << id;
+    int amount = ui->lineEdit->text().toInt();
+    DatabaseManager a;
+    a.openDatabase();
+    a.delivery(id, amount);
+    a.closeDatabase();
 }
 
 
@@ -106,8 +111,7 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_7_clicked()
 {
-    Zamowienie a;
-    a.anulowanie();
+    listaZamowienWidget->clear();
 }
 
 
@@ -138,7 +142,7 @@ void MainWindow::on_pushButton_4_clicked()
     DatabaseManager d1;
     d1.openDatabase();
 
-    qDebug() << "Przycisk został kliknięty.";
+    //qDebug() << "Przycisk został kliknięty.";
 
     // Tworzenie tabeli zamówień, jeśli nie istnieje
     QSqlQuery createTableQuery;

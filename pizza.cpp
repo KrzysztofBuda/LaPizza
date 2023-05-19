@@ -7,24 +7,18 @@ using namespace std;
 string Pizza::nazwaPizzy(int id) {
     string name;
     DatabaseManager d1;
-
     d1.openDatabase();
     name = d1.getPizzaName(id);
-
     d1.closeDatabase();
-
     return name;
     }
 
 double Pizza::cenaPizzy(int id) {
     double cena = 0.0;
     DatabaseManager d2;
-
     d2.openDatabase();
     cena = d2.getPizzaPrice(id);
-
     d2.closeDatabase();
-
     return cena;
     }
 
@@ -75,51 +69,6 @@ void Zamowienie::usuwanie() {
     std::cout << "Rekord został usunięty z bazy danych" << std::endl;
 }
 
-void Zamowienie::anulowanie() {
-    sqlite3* db;
-    int rc = sqlite3_open("mydatabase.db", &db);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    const char* sql_insert = "DELETE FROM zamowienia";
-    rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się dodać rekordu: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    sqlite3_close(db);
-    std::cout << "Rekord został dodany do bazy danych" << std::endl;
-}
-
 void Zamowienie::oblicz_kwote() {
 
-}
-
-void Zamowienie::dodawanie_skladnikow() {
-    sqlite3* db;
-    int rc = sqlite3_open("/Users/bartek/Documents/Programowanie obiektowe/LaPizza-main/mydatabaseee.db", &db);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    const char* sql_create_table = "CREATE TABLE IF NOT EXISTS skladniki (id INTEGER PRIMARY KEY, nazwa TEXT, ilosc INTEGER)";
-    rc = sqlite3_exec(db, sql_create_table, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się utworzyć tabeli: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    const char* sql_insert = "UPDATE skladniki SET ilosc = ilosc + 9 WHERE id=3";
-    rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się zaktualizować rekordu: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    sqlite3_close(db);
-    std::cout << "Rekord został zaktualizowany w bazie danych" << std::endl;
 }
