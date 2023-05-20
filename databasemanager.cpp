@@ -5,8 +5,8 @@
 #include <QSqlError>
 #include <QCoreApplication>
 #include <QDir>
-using namespace std;
 
+using namespace std;
 
 DatabaseManager::DatabaseManager()
 {
@@ -108,7 +108,25 @@ double DatabaseManager::getPizzaPrice(int id)
     return price;
 }
 
-bool DatabaseManager::delivery(int id, int amount)
+int DatabaseManager::getPizzaId(QString name) {
+    int id = -1;
+
+    QSqlQuery query;
+    query.prepare("SELECT id FROM pizza Where nazwa = ?");
+    query.addBindValue(name);
+
+    if (query.exec() && query.next()) {
+            id = query.value(0).toDouble();
+        } else if (query.lastError().isValid()) {
+            qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+        } else {
+            qDebug() << "Brak pizzy o podanej nazwie:" << name;
+        }
+        qDebug() << id;
+    return id;
+}
+
+bool DatabaseManager::updateIngredients(int id, int amount)
 {
     QSqlQuery query;
     query.prepare("UPDATE skladniki SET ilosc = ilosc + :amount WHERE id=:id");
@@ -124,6 +142,27 @@ bool DatabaseManager::delivery(int id, int amount)
 
     return true;
 }
+
+bool DatabaseManager::checkIngredients(int id)
+{
+    int ilosc = 0;
+    QSqlQuery query;
+    query.prepare("SELECT ilosc FROM skladniki WHERE id = :id");
+    query.bindValue(":id", id);
+
+    if (query.exec() && query.next()) {
+        ilosc = query.value(0).toInt();
+        qDebug() << "Ilość składnika o id" << id << ":" << ilosc;
+        return ilosc > 0;  // Zwraca true, jeśli ilość > 0, w przeciwnym razie false
+    } else if (query.lastError().isValid()) {
+        qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+    } else {
+        qDebug() << "Brak składnika o podanym id:" << id;
+    }
+
+    return false;  // Zwraca false, jeśli nie udało się pobrać ilości składnika
+}
+
 
 void DatabaseManager::closeDatabase()
 {

@@ -4,10 +4,13 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include "pizza.h"
+#include <QIntValidator>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
 #include <QString>
+#include <QLineEdit>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -87,7 +90,7 @@ void MainWindow::on_pushButton_6_clicked()
     int amount = ui->lineEdit->text().toInt();
     DatabaseManager a;
     a.openDatabase();
-    a.delivery(id, amount);
+    a.updateIngredients(id, amount);
     a.closeDatabase();
 }
 
@@ -98,7 +101,9 @@ void MainWindow::on_pushButton_9_clicked()
     Pizza p1;
     double price = p1.cenaPizzy(id);
     string namee = p1.nazwaPizzy(id);
+    //int dupa = p1.idPizzy(QString::fromStdString(namee));       //sprawdzenie czy działa pobieranie id z bazy danych
     listaZamowienWidget->addItem(QString::fromStdString(namee));
+    //qDebug() << dupa;
     qDebug() << price;
 }
 
@@ -163,7 +168,15 @@ void MainWindow::on_pushButton_4_clicked()
         QStringList pozycjeZamowienia;
         for (int i = 0; i < listaZamowienWidget->count(); i++) {
             pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
+            //usuwanie składników z bazy danych, gdy jest składane zamówienie
+            string pozycjeZam = listaZamowienWidget->item(i)->text().toStdString();
+            Pizza a;
+            a.countIngredients(pozycjeZam); // dodać aby najpierw liczyło ile składników jest potrzebnych do zamówienia,
+                                             // a póżniej dopeiro je aktualizować w bazie
+                                            //aktualizację dodaj poza pętlą
         }
+        //trzeba znowu otworzyć bazę danych, bo updateIngredients korzysta z bazy
+        d1.openDatabase();
         QString pozycje = pozycjeZamowienia.join(", ");
         qDebug() << pozycje;
         // Wstawianie danych do tabeli zamówień
@@ -214,5 +227,13 @@ void MainWindow::on_pushButton_13_clicked()
     string namee = p5.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
     qDebug() << price;
+}
+
+
+void MainWindow::on_lineEdit_textEdited(const QString &arg1)
+{
+    QLineEdit *lineEdit = ui->lineEdit;
+    QIntValidator *validator = new QIntValidator(-999, 999, lineEdit);
+    lineEdit->setValidator(validator);
 }
 

@@ -1,7 +1,6 @@
 #include "pizza.h"
 #include "databasemanager.h"
 
-
 using namespace std;
 
 string Pizza::nazwaPizzy(int id) {
@@ -21,6 +20,143 @@ double Pizza::cenaPizzy(int id) {
     d2.closeDatabase();
     return cena;
     }
+
+int Pizza::idPizzy(QString name) {
+    int id=-1;
+    DatabaseManager d3;
+    d3.openDatabase();
+    id = d3.getPizzaId(name);
+    d3.closeDatabase();
+    return id;
+}
+bool Pizza::countIngredients(string name) {
+    DatabaseManager db;
+    db.openDatabase();
+
+    bool allIngredientsAvailable = true;
+
+    if (name == "Margherita") {
+        // sos, ser, oregano
+        if (db.checkIngredients(1)) {
+            db.updateIngredients(1, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(2)) {
+            db.updateIngredients(2, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(4)) {
+            db.updateIngredients(4, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+    }
+    else if (name == "Capriciosa") {
+        // sos, ser, szynka, oregano
+        if (db.checkIngredients(1)) {
+            db.updateIngredients(1, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(2)) {
+            db.updateIngredients(2, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(3)) {
+            db.updateIngredients(3, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(4)) {
+            db.updateIngredients(4, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+    }
+    else if (name == "Pepperoni") {
+        // sos, ser, pepperoni, oregano
+        if (db.checkIngredients(1)) {
+            db.updateIngredients(1, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(2)) {
+            db.updateIngredients(2, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(5)) {
+            db.updateIngredients(5, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(4)) {
+            db.updateIngredients(4, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+    }
+    else if (name == "Hawajska") {
+        // sos, ser, szynka, ananas
+        if (db.checkIngredients(1)) {
+            db.updateIngredients(1, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(2)) {
+            db.updateIngredients(2, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(3)) {
+            db.updateIngredients(3, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(6)) {
+            db.updateIngredients(6, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+    }
+    else if (name == "Vege") {
+        // sos, wegański ser, wegańska szynka
+        if (db.checkIngredients(1)) {
+            db.updateIngredients(1, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(7)) {
+            db.updateIngredients(7, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+        if (db.checkIngredients(8)) {
+            db.updateIngredients(8, -1);
+        } else {
+            allIngredientsAvailable = false;
+        }
+    }
+    else {
+        qDebug() << "Nie ma takiej pozycji w bazie";
+        db.closeDatabase();
+        return false;
+    }
+
+    db.closeDatabase();
+
+    if (!allIngredientsAvailable) {
+        qDebug() << "Niektóre składniki nie są dostępne";
+        return false;
+    }
+
+    qDebug() << "Zaktualizowano składniki";
+        return true;
+}
+
 
 void Zamowienie::dodawanie() {
     wartosc =500;
@@ -72,3 +208,8 @@ void Zamowienie::usuwanie() {
 void Zamowienie::oblicz_kwote() {
 
 }
+
+void Zamowienie::updateIngredientsWhenOrder(QString name) {
+
+}
+

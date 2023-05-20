@@ -60,6 +60,8 @@ private slots:
 
     void on_pushButton_13_clicked();
 
+    void on_lineEdit_textEdited(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager* m_dbManager;

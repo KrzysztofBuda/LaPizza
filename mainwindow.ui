@@ -30,7 +30,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -74,7 +74,7 @@
              <number>0</number>
             </property>
             <property name="text">
-             <string>Witam w LaPizza. Codziennie świerze składniki oraz darmowa dostawa</string>
+             <string>Witaj w LaPizza. Codziennie świerze składniki oraz darmowa dostawa</string>
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>
@@ -178,8 +178,26 @@
           <height>35</height>
          </rect>
         </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhNone</set>
+        </property>
+        <property name="inputMask">
+         <string extracomment="-99;99"/>
+        </property>
         <property name="text">
          <string/>
+        </property>
+        <property name="maxLength">
+         <number>32767</number>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
         </property>
         <property name="clearButtonEnabled">
          <bool>false</bool>

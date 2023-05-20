@@ -7,7 +7,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
-
 using namespace std;
 
 class Pizza{
@@ -15,9 +14,10 @@ public:
     string nazwa;
     int id;
     double cena;
-
+    int idPizzy(QString name);
     string nazwaPizzy(int id);
     double cenaPizzy(int id);
+    bool countIngredients(string name);
 };
 
 class Zamowienie{
@@ -31,6 +31,8 @@ public:
     void usuwanie();
 
     void oblicz_kwote();
+
+    void updateIngredientsWhenOrder(QString name);
 };
 
 class Klient{

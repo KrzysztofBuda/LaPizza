@@ -4,8 +4,8 @@
 #define DATABASEMANAGER_H
 
 #include <QSqlDatabase>
-using namespace std;
 
+using namespace std;
 
 class DatabaseManager
 {
@@ -17,8 +17,10 @@ public:
     bool insertData(const QString& data);
     void closeDatabase();
     string getPizzaName(int id);
+    int getPizzaId(QString name);
     double getPizzaPrice(int id);
-    bool delivery(int id, int amount);
+    bool updateIngredients(int id, int amount);
+    bool checkIngredients(int id);
 
 private:
     static QSqlDatabase m_database; // Przeniesiona deklaracja zmiennej m_database
