@@ -11,7 +11,6 @@
 #include <QString>
 #include <QLineEdit>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -142,16 +141,17 @@ void MainWindow::on_pushButton_12_clicked()
     qDebug() << price;
 }
 
+
 void MainWindow::on_pushButton_4_clicked()
 {
-    DatabaseManager d1;
-    d1.openDatabase();
-
-    //qDebug() << "Przycisk został kliknięty.";
+    DatabaseManager db;
+    Pizza pizza;
+    Zamowienie zam;
+    db.openDatabase();
 
     // Tworzenie tabeli zamówień, jeśli nie istnieje
     QSqlQuery createTableQuery;
-    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT)");
+    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC)");
     if (createTableQuery.exec()) {
         qDebug() << "Tabela została utworzona: zamowienia";
     } else {
@@ -164,36 +164,37 @@ void MainWindow::on_pushButton_4_clicked()
     if (getMaxNumerQuery.exec() && getMaxNumerQuery.next()) {
         int numerZamowienia = getMaxNumerQuery.value(0).toInt() + 1;
 
-        // Zapisywanie pozycji z listy zamówień
         QStringList pozycjeZamowienia;
         for (int i = 0; i < listaZamowienWidget->count(); i++) {
             pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
-            //usuwanie składników z bazy danych, gdy jest składane zamówienie
-            string pozycjeZam = listaZamowienWidget->item(i)->text().toStdString();
-            Pizza a;
-            a.countIngredients(pozycjeZam); // dodać aby najpierw liczyło ile składników jest potrzebnych do zamówienia,
-                                             // a póżniej dopeiro je aktualizować w bazie
-                                            //aktualizację dodaj poza pętlą
         }
-        //trzeba znowu otworzyć bazę danych, bo updateIngredients korzysta z bazy
-        d1.openDatabase();
-        QString pozycje = pozycjeZamowienia.join(", ");
-        qDebug() << pozycje;
-        // Wstawianie danych do tabeli zamówień
-        QSqlQuery insertDataQuery;
-        insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje) VALUES (:numer, :pozycje)");
-        insertDataQuery.bindValue(":numer", numerZamowienia);
-        insertDataQuery.bindValue(":pozycje", pozycje);
-        if (insertDataQuery.exec()) {
-            qDebug() << "Dane zostały zapisane w tabeli zamowienia";
-        } else {
-            qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
+        //jeżeli odpowiednia ilość składników to aktualizacja składników w bazie i dodanie do zamówienia
+        if(pizza.countIngredientByName(pozycjeZamowienia)==true)
+        {
+            QString pozycje = pozycjeZamowienia.join(", ");
+
+            // Wstawianie danych do tabeli zamówień
+            //aktualizacja składników w bazie
+            zam.updateIngredientsWhenOrder(pozycjeZamowienia);
+            QSqlQuery insertDataQuery;
+            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje) VALUES (:numer, :pozycje)");
+            insertDataQuery.bindValue(":numer", numerZamowienia);
+            insertDataQuery.bindValue(":pozycje", pozycje);
+            if (insertDataQuery.exec()) {
+                qDebug() << "Dane zostały zapisane w tabeli zamowienia";
+            } else {
+                qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
+            }
+        }
+        else
+        {
+            qDebug()<<"Nie ma odpowiedniej ilość składników do złożenia zamówienia";
         }
     } else {
         qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
     }
 
-    d1.closeDatabase();
+    db.closeDatabase();
 }
 
 

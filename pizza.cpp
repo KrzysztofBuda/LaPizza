@@ -10,7 +10,7 @@ string Pizza::nazwaPizzy(int id) {
     name = d1.getPizzaName(id);
     d1.closeDatabase();
     return name;
-    }
+}
 
 double Pizza::cenaPizzy(int id) {
     double cena = 0.0;
@@ -19,7 +19,7 @@ double Pizza::cenaPizzy(int id) {
     cena = d2.getPizzaPrice(id);
     d2.closeDatabase();
     return cena;
-    }
+}
 
 int Pizza::idPizzy(QString name) {
     int id=-1;
@@ -29,187 +29,125 @@ int Pizza::idPizzy(QString name) {
     d3.closeDatabase();
     return id;
 }
-bool Pizza::countIngredients(string name) {
+bool Pizza::countIngredientByName(QStringList name) {     //sprawdza czy w jest odpowiednia ilość składników w bazie do złożenia zamówienia
+
     DatabaseManager db;
     db.openDatabase();
+    int sos = db.checkIngredients(1);
+    int ser = db.checkIngredients(2);
+    int szynka = db.checkIngredients(3);
+    int oregano = db.checkIngredients(4);
+    int pepperoni = db.checkIngredients(5);
+    int ananas = db.checkIngredients(6);
+    int weganskiSer = db.checkIngredients(7);
+    int weganskaSzynka = db.checkIngredients(8);
 
-    bool allIngredientsAvailable = true;
-
-    if (name == "Margherita") {
-        // sos, ser, oregano
-        if (db.checkIngredients(1)) {
-            db.updateIngredients(1, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(2)) {
-            db.updateIngredients(2, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(4)) {
-            db.updateIngredients(4, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-    }
-    else if (name == "Capriciosa") {
-        // sos, ser, szynka, oregano
-        if (db.checkIngredients(1)) {
-            db.updateIngredients(1, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(2)) {
-            db.updateIngredients(2, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(3)) {
-            db.updateIngredients(3, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(4)) {
-            db.updateIngredients(4, -1);
-        } else {
-            allIngredientsAvailable = false;
+    for (QStringList::iterator it = name.begin(); it != name.end(); ++it)
+    {
+        const QString &nejm = *it;
+        int id = db.getPizzaId(nejm);
+        switch(id){
+            case 1:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                break;
+            case 2:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                szynka -= 1;
+                break;
+            case 3:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                pepperoni -= 1;
+                break;
+            case 4:
+                sos -= 1;
+                ser -= 1;
+                szynka -= 1;
+                ananas -= 1;
+                break;
+            case 5:
+                sos -= 1;
+                weganskaSzynka -= 1;
+                weganskiSer -= 1;
+                break;
         }
     }
-    else if (name == "Pepperoni") {
-        // sos, ser, pepperoni, oregano
-        if (db.checkIngredients(1)) {
-            db.updateIngredients(1, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(2)) {
-            db.updateIngredients(2, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(5)) {
-            db.updateIngredients(5, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(4)) {
-            db.updateIngredients(4, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-    }
-    else if (name == "Hawajska") {
-        // sos, ser, szynka, ananas
-        if (db.checkIngredients(1)) {
-            db.updateIngredients(1, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(2)) {
-            db.updateIngredients(2, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(3)) {
-            db.updateIngredients(3, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(6)) {
-            db.updateIngredients(6, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-    }
-    else if (name == "Vege") {
-        // sos, wegański ser, wegańska szynka
-        if (db.checkIngredients(1)) {
-            db.updateIngredients(1, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(7)) {
-            db.updateIngredients(7, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-        if (db.checkIngredients(8)) {
-            db.updateIngredients(8, -1);
-        } else {
-            allIngredientsAvailable = false;
-        }
-    }
-    else {
-        qDebug() << "Nie ma takiej pozycji w bazie";
-        db.closeDatabase();
-        return false;
-    }
-
     db.closeDatabase();
-
-    if (!allIngredientsAvailable) {
-        qDebug() << "Niektóre składniki nie są dostępne";
+    if(sos<0 || ser<0 || szynka<0 || oregano<0 || pepperoni<0 || ananas<0 || weganskiSer<0 || weganskaSzynka<0)
+    {
         return false;
     }
-
-    qDebug() << "Zaktualizowano składniki";
+    else
+    {
         return true;
+    }
 }
 
-
-void Zamowienie::dodawanie() {
-    wartosc =500;
-    sqlite3* db;
-    int rc = sqlite3_open("mydatabase.db", &db);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    const char* sql_create_table = "CREATE TABLE IF NOT EXISTS zamowienia (id INTEGER PRIMARY KEY, cena NUMERIC)";
-    rc = sqlite3_exec(db, sql_create_table, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się utworzyć tabeli: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    string sql_insert = "INSERT INTO zamowienia (cena) VALUES (" + to_string(wartosc) + ")";
-    const char* sql_query = sql_insert.c_str();
-    rc = sqlite3_exec(db, sql_query, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się dodać rekordu: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    sqlite3_close(db);
-    std::cout << "Rekord został dodany do bazy danych" << std::endl;
-}
-
-void Zamowienie::usuwanie() {
-    sqlite3* db;
-    int rc = sqlite3_open("mydatabase.db", &db);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się otworzyć bazy danych: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    const char* sql_insert = "DELETE FROM zamowienia WHERE id = 12";
-    rc = sqlite3_exec(db, sql_insert, nullptr, nullptr, nullptr);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Nie udało się usunąć rekordu: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-    }
-
-    sqlite3_close(db);
-    std::cout << "Rekord został usunięty z bazy danych" << std::endl;
-}
 
 void Zamowienie::oblicz_kwote() {
 
 }
 
-void Zamowienie::updateIngredientsWhenOrder(QString name) {
+void Zamowienie::updateIngredientsWhenOrder(QStringList name) {
+    DatabaseManager db;
+    db.openDatabase();
+    int sos = 0;
+    int ser = 0;
+    int szynka = 0;
+    int oregano = 0;
+    int pepperoni = 0;
+    int ananas = 0;
+    int weganskiSer = 0;
+    int weganskaSzynka = 0;
 
+    for (QStringList::iterator it = name.begin(); it != name.end(); ++it)
+    {
+        const QString &nejm = *it;
+        int id = db.getPizzaId(nejm);
+        switch(id){
+        case 1:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                break;
+        case 2:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                szynka -= 1;
+                break;
+        case 3:
+                sos -= 1;
+                ser -= 1;
+                oregano -= 1;
+                pepperoni -= 1;
+                break;
+        case 4:
+                sos -= 1;
+                ser -= 1;
+                szynka -= 1;
+                ananas -= 1;
+                break;
+        case 5:
+                sos -= 1;
+                weganskaSzynka -= 1;
+                weganskiSer -= 1;
+                break;
+        }
+    }
+    db.updateIngredients(1,sos);
+    db.updateIngredients(2,ser);
+    db.updateIngredients(3,szynka);
+    db.updateIngredients(4,oregano);
+    db.updateIngredients(5,pepperoni);
+    db.updateIngredients(6,ananas);
+    db.updateIngredients(7,weganskiSer);
+    db.updateIngredients(8,weganskaSzynka);
+    qDebug() << "Aktualizacja składników w bazie wykonana poprawnie";
 }
 

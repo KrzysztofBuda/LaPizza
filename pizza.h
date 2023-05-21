@@ -17,7 +17,7 @@ public:
     int idPizzy(QString name);
     string nazwaPizzy(int id);
     double cenaPizzy(int id);
-    bool countIngredients(string name);
+    bool countIngredientByName(QStringList name);
 };
 
 class Zamowienie{
@@ -25,14 +25,8 @@ public:
     double cena;
     int nr_zamówienia;
     double wartosc;
-
-    void dodawanie();
-
-    void usuwanie();
-
     void oblicz_kwote();
-
-    void updateIngredientsWhenOrder(QString name);
+    void updateIngredientsWhenOrder(QStringList name);
 };
 
 class Klient{
@@ -40,9 +34,7 @@ public:
     string imie;
     int nr_telefonu;
     string adres;
-
     void platnosc();
-
     void skladanie_zamowienia();
 };
 
@@ -51,11 +43,8 @@ public:
     int platnosc_nr;
     double suma;
     string rodzaj_platnosci;
-
     void nr_platnosci();
-
     void platnosc_info();
-
     void sumowanie();
 };
 

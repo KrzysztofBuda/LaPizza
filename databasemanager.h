@@ -20,7 +20,7 @@ public:
     int getPizzaId(QString name);
     double getPizzaPrice(int id);
     bool updateIngredients(int id, int amount);
-    bool checkIngredients(int id);
+    int checkIngredients(int id);
 
 private:
     static QSqlDatabase m_database; // Przeniesiona deklaracja zmiennej m_database

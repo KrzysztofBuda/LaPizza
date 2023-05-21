@@ -122,7 +122,7 @@ int DatabaseManager::getPizzaId(QString name) {
         } else {
             qDebug() << "Brak pizzy o podanej nazwie:" << name;
         }
-        qDebug() << id;
+        //qDebug() << id;
     return id;
 }
 
@@ -137,13 +137,11 @@ bool DatabaseManager::updateIngredients(int id, int amount)
         qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
         return false;
     }
-
-    qDebug() << "Zapytanie Uppdate wykonane poprawnie";
-
+    //qDebug() << "Zapytanie Uppdate wykonane poprawnie";
     return true;
 }
 
-bool DatabaseManager::checkIngredients(int id)
+int DatabaseManager::checkIngredients(int id)
 {
     int ilosc = 0;
     QSqlQuery query;
@@ -153,14 +151,11 @@ bool DatabaseManager::checkIngredients(int id)
     if (query.exec() && query.next()) {
         ilosc = query.value(0).toInt();
         qDebug() << "Ilość składnika o id" << id << ":" << ilosc;
-        return ilosc > 0;  // Zwraca true, jeśli ilość > 0, w przeciwnym razie false
-    } else if (query.lastError().isValid()) {
-        qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
-    } else {
-        qDebug() << "Brak składnika o podanym id:" << id;
     }
-
-    return false;  // Zwraca false, jeśli nie udało się pobrać ilości składnika
+    else {
+        qDebug() << "Błąd zapytania do bazy danych:" << query.lastError().text();
+    }
+    return ilosc;
 }
 
 
