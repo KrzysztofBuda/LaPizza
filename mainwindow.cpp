@@ -98,12 +98,8 @@ void MainWindow::on_pushButton_9_clicked()
 {
     int id=1;
     Pizza p1;
-    double price = p1.cenaPizzy(id);
     string namee = p1.nazwaPizzy(id);
-    //int dupa = p1.idPizzy(QString::fromStdString(namee));       //sprawdzenie czy działa pobieranie id z bazy danych
     listaZamowienWidget->addItem(QString::fromStdString(namee));
-    //qDebug() << dupa;
-    qDebug() << price;
 }
 
 
@@ -135,10 +131,8 @@ void MainWindow::on_pushButton_12_clicked()
 {
     int id=4;
     Pizza p4;
-    double price = p4.cenaPizzy(id);
     string namee = p4.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
-    qDebug() << price;
 }
 
 
@@ -173,13 +167,19 @@ void MainWindow::on_pushButton_4_clicked()
         {
             QString pozycje = pozycjeZamowienia.join(", ");
 
-            // Wstawianie danych do tabeli zamówień
-            //aktualizacja składników w bazie
+            //obliczenie kwoty zamówienia
+            double wartosc_zamowienia = zam.oblicz_kwote(pozycjeZamowienia);
+            qDebug() << wartosc_zamowienia<<"Wartosc zamowienia";
+
+            //dodac do tabeli zamowienia date zamowienia
+
             zam.updateIngredientsWhenOrder(pozycjeZamowienia);
+            db.openDatabase();
             QSqlQuery insertDataQuery;
-            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje) VALUES (:numer, :pozycje)");
+            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc) VALUES (:numer, :pozycje, :wartosc)");
             insertDataQuery.bindValue(":numer", numerZamowienia);
             insertDataQuery.bindValue(":pozycje", pozycje);
+            insertDataQuery.bindValue(":wartosc", wartosc_zamowienia);
             if (insertDataQuery.exec()) {
                 qDebug() << "Dane zostały zapisane w tabeli zamowienia";
             } else {
@@ -202,10 +202,8 @@ void MainWindow::on_pushButton_10_clicked()
 {
     int id=2;
     Pizza p2;
-    double price = p2.cenaPizzy(id);
     string namee = p2.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
-    qDebug() << price;
 }
 
 
@@ -213,10 +211,8 @@ void MainWindow::on_pushButton_11_clicked()
 {
     int id=3;
     Pizza p3;
-    double price = p3.cenaPizzy(id);
     string namee = p3.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
-    qDebug() << price;
 }
 
 
@@ -224,10 +220,8 @@ void MainWindow::on_pushButton_13_clicked()
 {
     int id=5;
     Pizza p5;
-    double price = p5.cenaPizzy(id);
     string namee = p5.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
-    qDebug() << price;
 }
 
 

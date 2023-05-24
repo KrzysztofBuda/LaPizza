@@ -22,10 +22,7 @@ public:
 
 class Zamowienie{
 public:
-    double cena;
-    int nr_zamówienia;
-    double wartosc;
-    void oblicz_kwote();
+    double oblicz_kwote(QStringList name);
     void updateIngredientsWhenOrder(QStringList name);
 };
 

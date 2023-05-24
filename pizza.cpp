@@ -89,8 +89,20 @@ bool Pizza::countIngredientByName(QStringList name) {     //sprawdza czy w jest 
 }
 
 
-void Zamowienie::oblicz_kwote() {
+double Zamowienie::oblicz_kwote(QStringList name) {
+    DatabaseManager db;
+    db.openDatabase();
 
+    double wartosc = 0;
+
+    for (QStringList::iterator it = name.begin(); it != name.end(); ++it)
+    {
+        const QString &nejm = *it;
+        int id = db.getPizzaId(nejm);
+        wartosc += db.getPizzaPrice(id);
+    }
+    db.closeDatabase();
+    return wartosc;
 }
 
 void Zamowienie::updateIngredientsWhenOrder(QStringList name) {
@@ -148,6 +160,7 @@ void Zamowienie::updateIngredientsWhenOrder(QStringList name) {
     db.updateIngredients(6,ananas);
     db.updateIngredients(7,weganskiSer);
     db.updateIngredients(8,weganskaSzynka);
+    db.closeDatabase();
     qDebug() << "Aktualizacja składników w bazie wykonana poprawnie";
 }
 
