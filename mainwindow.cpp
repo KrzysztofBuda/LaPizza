@@ -145,7 +145,7 @@ void MainWindow::on_pushButton_4_clicked()
 
     // Tworzenie tabeli zamówień, jeśli nie istnieje
     QSqlQuery createTableQuery;
-    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC)");
+    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC, data_zamowienia TEXT)");
     if (createTableQuery.exec()) {
         qDebug() << "Tabela została utworzona: zamowienia";
     } else {
@@ -172,14 +172,16 @@ void MainWindow::on_pushButton_4_clicked()
             qDebug() << wartosc_zamowienia<<"Wartosc zamowienia";
 
             //dodac do tabeli zamowienia date zamowienia
+            //string data_zamowienia;
 
             zam.updateIngredientsWhenOrder(pozycjeZamowienia);
             db.openDatabase();
             QSqlQuery insertDataQuery;
-            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc) VALUES (:numer, :pozycje, :wartosc)");
+            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc) VALUES (:numer, :pozycje, :wartosc, :data_zamowienia)");
             insertDataQuery.bindValue(":numer", numerZamowienia);
             insertDataQuery.bindValue(":pozycje", pozycje);
             insertDataQuery.bindValue(":wartosc", wartosc_zamowienia);
+            //insertDataQuery.bindValue(":data_zamowienia", data_zamowienia);
             if (insertDataQuery.exec()) {
                 qDebug() << "Dane zostały zapisane w tabeli zamowienia";
             } else {
@@ -195,6 +197,8 @@ void MainWindow::on_pushButton_4_clicked()
     }
 
     db.closeDatabase();
+    //czyszczenie listy zamówień
+    listaZamowienWidget->clear();;
 }
 
 
