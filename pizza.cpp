@@ -161,6 +161,6 @@ void Zamowienie::updateIngredientsWhenOrder(QStringList name) {
     db.updateIngredients(7,weganskiSer);
     db.updateIngredients(8,weganskaSzynka);
     db.closeDatabase();
-    qDebug() << "Aktualizacja składników w bazie wykonana poprawnie";
+    //qDebug() << "Aktualizacja składników w bazie wykonana poprawnie";
 }
 

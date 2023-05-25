@@ -46,12 +46,12 @@ bool DatabaseManager::createTable()
     qDebug() << "Tabela została utworzona: pizza";
 
     // Odczyt danych z tabeli pizza i wyświetlenie ich na konsoli
-    QSqlQuery selectQuery("SELECT * FROM pizza");
-    while (selectQuery.next()) {
-        int id = selectQuery.value(0).toInt();
-        QString nazwa = selectQuery.value(1).toString();
-        qDebug() << "ID:" << id << "Nazwa:" << nazwa;
-    }
+    //QSqlQuery selectQuery("SELECT * FROM pizza");
+    //while (selectQuery.next()) {
+    //    int id = selectQuery.value(0).toInt();
+    //    QString nazwa = selectQuery.value(1).toString();
+    //    qDebug() << "ID:" << id << "Nazwa:" << nazwa;
+    //}
 
     return true;
 }

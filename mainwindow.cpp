@@ -10,6 +10,9 @@
 #include <QDebug>
 #include <QString>
 #include <QLineEdit>
+#include <ctime>
+#include <sstream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -105,7 +108,13 @@ void MainWindow::on_pushButton_9_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->usuwanie);
+    //usuwanie pozycji z zamówienia
+    QListWidgetItem* selectedItem = listaZamowienWidget->currentItem();
+    if (selectedItem != nullptr) {
+        int row = listaZamowienWidget->row(selectedItem);
+        listaZamowienWidget->takeItem(row);
+        delete selectedItem;
+    }
 }
 
 
@@ -117,13 +126,13 @@ void MainWindow::on_pushButton_7_clicked()
 
 void MainWindow::on_wrocButton3_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->Podsumowanie);
+
 }
 
 
 void MainWindow::on_pushButton_8_clicked()
 {
-
+    ui->stackedWidget->setCurrentWidget(ui->Podsumowanie);
 }
 
 
@@ -138,67 +147,7 @@ void MainWindow::on_pushButton_12_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    DatabaseManager db;
-    Pizza pizza;
-    Zamowienie zam;
-    db.openDatabase();
-
-    // Tworzenie tabeli zamówień, jeśli nie istnieje
-    QSqlQuery createTableQuery;
-    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC, data_zamowienia TEXT)");
-    if (createTableQuery.exec()) {
-        qDebug() << "Tabela została utworzona: zamowienia";
-    } else {
-        qDebug() << "Błąd tworzenia tabeli:" << createTableQuery.lastError().text();
-    }
-
-    // Pobieranie aktualnego numeru zamówienia
-    QSqlQuery getMaxNumerQuery;
-    getMaxNumerQuery.prepare("SELECT MAX(numer) FROM zamowienia");
-    if (getMaxNumerQuery.exec() && getMaxNumerQuery.next()) {
-        int numerZamowienia = getMaxNumerQuery.value(0).toInt() + 1;
-
-        QStringList pozycjeZamowienia;
-        for (int i = 0; i < listaZamowienWidget->count(); i++) {
-            pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
-        }
-        //jeżeli odpowiednia ilość składników to aktualizacja składników w bazie i dodanie do zamówienia
-        if(pizza.countIngredientByName(pozycjeZamowienia)==true)
-        {
-            QString pozycje = pozycjeZamowienia.join(", ");
-
-            //obliczenie kwoty zamówienia
-            double wartosc_zamowienia = zam.oblicz_kwote(pozycjeZamowienia);
-            qDebug() << wartosc_zamowienia<<"Wartosc zamowienia";
-
-            //dodac do tabeli zamowienia date zamowienia
-            //string data_zamowienia;
-
-            zam.updateIngredientsWhenOrder(pozycjeZamowienia);
-            db.openDatabase();
-            QSqlQuery insertDataQuery;
-            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc) VALUES (:numer, :pozycje, :wartosc, :data_zamowienia)");
-            insertDataQuery.bindValue(":numer", numerZamowienia);
-            insertDataQuery.bindValue(":pozycje", pozycje);
-            insertDataQuery.bindValue(":wartosc", wartosc_zamowienia);
-            //insertDataQuery.bindValue(":data_zamowienia", data_zamowienia);
-            if (insertDataQuery.exec()) {
-                qDebug() << "Dane zostały zapisane w tabeli zamowienia";
-            } else {
-                qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
-            }
-        }
-        else
-        {
-            qDebug()<<"Nie ma odpowiedniej ilość składników do złożenia zamówienia";
-        }
-    } else {
-        qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
-    }
-
-    db.closeDatabase();
-    //czyszczenie listy zamówień
-    listaZamowienWidget->clear();;
+    ui->stackedWidget->setCurrentWidget(ui->Platnosc);
 }
 
 
@@ -234,5 +183,203 @@ void MainWindow::on_lineEdit_textEdited(const QString &arg1)
     QLineEdit *lineEdit = ui->lineEdit;
     QIntValidator *validator = new QIntValidator(-999, 999, lineEdit);
     lineEdit->setValidator(validator);
+}
+
+
+void MainWindow::on_pushButton_14_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->odbior);
+}
+
+
+void MainWindow::on_pushButton_15_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->platnosc_online);
+}
+
+
+void MainWindow::on_pushButton_16_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->Platnosc);
+}
+
+
+void MainWindow::on_pushButton_17_clicked()
+{
+    //przy odbiorze
+    QString metoda_platnosci = "przy odbiorze";
+    DatabaseManager db;
+    Pizza pizza;
+    Zamowienie zam;
+    db.openDatabase();
+
+    // Tworzenie tabeli zamówień, jeśli nie istnieje
+    QSqlQuery createTableQuery;
+    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC, data_zamowienia TEXT, platnosc TEXT)");
+    if (createTableQuery.exec()) {
+        qDebug() << "Tabela została utworzona: zamowienia";
+    } else {
+        qDebug() << "Błąd tworzenia tabeli:" << createTableQuery.lastError().text();
+    }
+
+    // Pobieranie aktualnego numeru zamówienia
+    QSqlQuery getMaxNumerQuery;
+    getMaxNumerQuery.prepare("SELECT MAX(numer) FROM zamowienia");
+    if (getMaxNumerQuery.exec() && getMaxNumerQuery.next()) {
+        int numerZamowienia = getMaxNumerQuery.value(0).toInt() + 1;
+
+        QStringList pozycjeZamowienia;
+        for (int i = 0; i < listaZamowienWidget->count(); i++) {
+            pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
+        }
+        //sprawdzenie czy jest wystarczająca ilosc składników do złożenia zamówienia
+        if(pizza.countIngredientByName(pozycjeZamowienia)==true)
+        {
+            QString pozycje = pozycjeZamowienia.join(", ");
+
+            //obliczenie kwoty zamówienia
+            double wartosc_zamowienia = zam.oblicz_kwote(pozycjeZamowienia);
+            //qDebug() << wartosc_zamowienia<<"Wartosc zamowienia";
+
+            //dodanie daty i godziny do zamówienia
+            std::time_t czas = std::time(nullptr);
+            std::tm* czasInfo = std::localtime(&czas);
+
+            int rok = czasInfo->tm_year + 1900;
+            int miesiac = czasInfo->tm_mon + 1;
+            int dzien = czasInfo->tm_mday;
+            int godzina = czasInfo->tm_hour;
+            int minuta = czasInfo->tm_min;
+            std::ostringstream ss;
+            ss << dzien << "." << miesiac << "." << rok << " " << godzina << ":" << minuta;
+            QString data_zamowienia = QString::fromStdString(ss.str());
+
+            //aktualizacja składników w bazie danych oraz dodanie zamówienia do bazy danych
+            zam.updateIngredientsWhenOrder(pozycjeZamowienia);
+            db.openDatabase();
+            QSqlQuery insertDataQuery;
+            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc, data_zamowienia, platnosc) VALUES (:numer, :pozycje, :wartosc, :data_zamowienia, :platnosc)");
+            insertDataQuery.bindValue(":numer", numerZamowienia);
+            insertDataQuery.bindValue(":pozycje", pozycje);
+            insertDataQuery.bindValue(":wartosc", wartosc_zamowienia);
+            insertDataQuery.bindValue(":data_zamowienia", data_zamowienia);
+            insertDataQuery.bindValue(":platnosc", metoda_platnosci);
+            if (insertDataQuery.exec()) {
+                qDebug() << "Dane zostały zapisane w tabeli zamowienia";
+                //czyszczenie listy zamówień
+                listaZamowienWidget->clear();;
+            } else {
+                qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
+            }
+        }
+        else
+        {
+            qDebug()<<"Nie ma odpowiedniej ilość składników do złożenia zamówienia";
+            QMessageBox::information(nullptr, "Uwaga!", "Nie ma odpowiedniej ilości składników do złożenia zamówienia!\nZadzwoń do obsługi aby dowiedzieć się więcej");
+            ui->stackedWidget->setCurrentWidget(ui->odbior);
+        }
+    } else {
+        qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
+    }
+
+    db.closeDatabase();
+    QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
+}
+
+
+void MainWindow::on_pushButton_18_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->platnosc_online);
+}
+
+
+void MainWindow::on_pushButton_19_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->odbior);
+}
+
+
+void MainWindow::on_pushButton_20_clicked()
+{
+    //przekieruj do banku i wróć
+    QString metoda_platnosci = "z góry";
+    DatabaseManager db;
+    Pizza pizza;
+    Zamowienie zam;
+    db.openDatabase();
+
+    // Tworzenie tabeli zamówień, jeśli nie istnieje
+    QSqlQuery createTableQuery;
+    createTableQuery.prepare("CREATE TABLE IF NOT EXISTS zamowienia (numer INTEGER PRIMARY KEY AUTOINCREMENT, pozycje TEXT, wartosc NUMERIC, data_zamowienia TEXT, platnosc TEXT)");
+    if (createTableQuery.exec()) {
+        qDebug() << "Tabela została utworzona: zamowienia";
+    } else {
+        qDebug() << "Błąd tworzenia tabeli:" << createTableQuery.lastError().text();
+    }
+
+    // Pobieranie aktualnego numeru zamówienia
+    QSqlQuery getMaxNumerQuery;
+    getMaxNumerQuery.prepare("SELECT MAX(numer) FROM zamowienia");
+    if (getMaxNumerQuery.exec() && getMaxNumerQuery.next()) {
+        int numerZamowienia = getMaxNumerQuery.value(0).toInt() + 1;
+
+        QStringList pozycjeZamowienia;
+        for (int i = 0; i < listaZamowienWidget->count(); i++) {
+            pozycjeZamowienia.append(listaZamowienWidget->item(i)->text());
+        }
+        //sprawdzenie czy jest wystarczająca ilosc składników do złożenia zamówienia
+        if(pizza.countIngredientByName(pozycjeZamowienia)==true)
+        {
+            QString pozycje = pozycjeZamowienia.join(", ");
+
+            //obliczenie kwoty zamówienia
+            double wartosc_zamowienia = zam.oblicz_kwote(pozycjeZamowienia);
+            //qDebug() << wartosc_zamowienia<<"Wartosc zamowienia";
+
+            //dodanie daty i godziny do zamówienia
+            std::time_t czas = std::time(nullptr);
+            std::tm* czasInfo = std::localtime(&czas);
+
+            int rok = czasInfo->tm_year + 1900;
+            int miesiac = czasInfo->tm_mon + 1;
+            int dzien = czasInfo->tm_mday;
+            int godzina = czasInfo->tm_hour;
+            int minuta = czasInfo->tm_min;
+            std::ostringstream ss;
+            ss << dzien << "." << miesiac << "." << rok << " " << godzina << ":" << minuta;
+            QString data_zamowienia = QString::fromStdString(ss.str());
+
+            //aktualizacja składników w bazie danych oraz dodanie zamówienia do bazy danych
+            zam.updateIngredientsWhenOrder(pozycjeZamowienia);
+            db.openDatabase();
+            QSqlQuery insertDataQuery;
+            insertDataQuery.prepare("INSERT INTO zamowienia (numer, pozycje, wartosc, data_zamowienia, platnosc) VALUES (:numer, :pozycje, :wartosc, :data_zamowienia, :platnosc)");
+            insertDataQuery.bindValue(":numer", numerZamowienia);
+            insertDataQuery.bindValue(":pozycje", pozycje);
+            insertDataQuery.bindValue(":wartosc", wartosc_zamowienia);
+            insertDataQuery.bindValue(":data_zamowienia", data_zamowienia);
+            insertDataQuery.bindValue(":platnosc", metoda_platnosci);
+            if (insertDataQuery.exec()) {
+                qDebug() << "Dane zostały zapisane w tabeli zamowienia";
+                //czyszczenie listy zamówień
+                listaZamowienWidget->clear();;
+            } else {
+                qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
+            }
+        }
+        else
+        {
+            qDebug()<<"Nie ma odpowiedniej ilość składników do złożenia zamówienia";
+            QMessageBox::information(nullptr, "Uwaga!", "Nie ma odpowiedniej ilości składników do złożenia zamówienia!\nZadzwoń do obsługi aby dowiedzieć się więcej");
+            ui->stackedWidget->setCurrentWidget(ui->odbior);
+        }
+    } else {
+        qDebug() << "Błąd pobierania maksymalnego numeru zamówienia:" << getMaxNumerQuery.lastError().text();
+    }
+
+    db.closeDatabase();
+    //wróć do głównej strony + komunikat
+    QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
+    ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 

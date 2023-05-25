@@ -62,6 +62,20 @@ private slots:
 
     void on_lineEdit_textEdited(const QString &arg1);
 
+    void on_pushButton_14_clicked();
+
+    void on_pushButton_15_clicked();
+
+    void on_pushButton_16_clicked();
+
+    void on_pushButton_17_clicked();
+
+    void on_pushButton_18_clicked();
+
+    void on_pushButton_19_clicked();
+
+    void on_pushButton_20_clicked();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager* m_dbManager;
