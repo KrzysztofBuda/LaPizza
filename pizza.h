@@ -26,28 +26,4 @@ public:
     void updateIngredientsWhenOrder(QStringList name);
 };
 
-class Klient{
-public:
-    string imie;
-    int nr_telefonu;
-    string adres;
-    void platnosc();
-    void skladanie_zamowienia();
-};
-
-class Platnosc{
-public:
-    int platnosc_nr;
-    double suma;
-    string rodzaj_platnosci;
-    void nr_platnosci();
-    void platnosc_info();
-    void sumowanie();
-};
-
-class Platnosc_online{
-public:
-    void zaplac();
-};
-
 #endif // PIZZA_H
