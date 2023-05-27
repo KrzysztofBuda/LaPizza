@@ -1,6 +1,7 @@
 QT       += core gui
 QT += sql
 LIBS += -L$$PWD/libs -lsqlite3
+QT += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
