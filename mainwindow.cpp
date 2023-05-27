@@ -14,6 +14,7 @@
 #include <sstream>
 #include <QMessageBox>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -381,5 +382,53 @@ void MainWindow::on_pushButton_20_clicked()
     //wróć do głównej strony + komunikat
     QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
     ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
+}
+
+
+void MainWindow::on_magazynButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->magazynWindow);
+    updateStanMagazynuList();
+}
+
+
+void MainWindow::on_statystykiButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->statystykiWindow);
+}
+
+void MainWindow::updateStanMagazynuList()
+{
+    // Wyczyść listę przed aktualizacją
+    ui->stanMagazynuList->clear();
+
+    // Pobierz dane z bazy danych
+    DatabaseManager db;
+    db.openDatabase();
+
+    // Pobierz listę składników i ich stany
+    QSqlQuery query("SELECT nazwa, ilosc FROM skladniki");
+    while (query.next()) {
+        QString skladnik = query.value(0).toString();
+        int stan = query.value(1).toInt();
+
+        // Wyświetl składnik i stan w QListWidget
+        QString itemText = skladnik + " - Stan: " + QString::number(stan);
+        QListWidgetItem* item = new QListWidgetItem(itemText);
+        ui->stanMagazynuList->addItem(item);
+    }
+
+    db.closeDatabase();
+}
+
+void MainWindow::on_wrocButton_2_clicked()
+{
+   ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
+}
+
+
+void MainWindow::on_wrocButton2_2_clicked()
+{
+   ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
 

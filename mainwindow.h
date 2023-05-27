@@ -76,6 +76,16 @@ private slots:
 
     void on_pushButton_20_clicked();
 
+    void on_magazynButton_clicked();
+
+    void on_statystykiButton_clicked();
+
+    void updateStanMagazynuList();
+
+    void on_wrocButton_2_clicked();
+
+    void on_wrocButton2_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager* m_dbManager;

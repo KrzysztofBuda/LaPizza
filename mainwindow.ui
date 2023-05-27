@@ -27,10 +27,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -266,6 +266,32 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Witaj w panelu dodawania składników!&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Gdy przyjedzie dostawa dodaj składniki do bazy danych&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="magazynButton">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>300</y>
+          <width>300</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Stan magazynu</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="statystykiButton">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>350</y>
+          <width>300</width>
+          <height>35</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Statystyki</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="menu">
        <widget class="QScrollArea" name="scrollArea">
@@ -291,7 +317,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>400</width>
+           <width>399</width>
            <height>389</height>
           </rect>
          </property>
@@ -605,7 +631,31 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="widget_2"/>
+      <widget class="QWidget" name="statystykiWindow">
+       <widget class="QGraphicsView" name="pizzaTygodnia">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>60</y>
+          <width>256</width>
+          <height>192</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="wrocButton2_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wróć</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="Platnosc">
        <widget class="QPushButton" name="pushButton_8">
         <property name="geometry">
@@ -707,7 +757,31 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="widget"/>
+      <widget class="QWidget" name="magazynWindow">
+       <widget class="QListWidget" name="stanMagazynuList">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>421</width>
+          <height>481</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="wrocButton_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>62</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wróć</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="platnosc_online">
        <widget class="QPushButton" name="pushButton_19">
         <property name="geometry">
