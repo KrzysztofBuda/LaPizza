@@ -28,13 +28,13 @@ public:
 private slots:
     void on_pushButton_2_clicked();
 
-    void on_pushButton_clicked();
+    void on_push_Button_clicked();
 
-    void on_wrocButton_clicked();
+    void on_wroc_Button_clicked();
 
-    void on_wrocButton2_clicked();
+    void on_wroc_Button2_clicked();
 
-    void on_podsumowanieButton_clicked();
+    void on_podsumowanie_Button_clicked();
 
     void on_pushButton_5_clicked();
 
@@ -45,8 +45,6 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_7_clicked();
-
-    void on_wrocButton3_clicked();
 
     void on_pushButton_8_clicked();
 
@@ -60,7 +58,7 @@ private slots:
 
     void on_pushButton_13_clicked();
 
-    void on_lineEdit_textEdited(const QString &arg1);
+    void on_lineEdit_textEdited();
 
     void on_pushButton_14_clicked();
 
@@ -76,9 +74,9 @@ private slots:
 
     void on_pushButton_20_clicked();
 
-    void on_magazynButton_clicked();
+    void on_magazyn_Button_clicked();
 
-    void on_statystykiButton_clicked();
+    void on_statystyki_Button_clicked();
 
     void updateStanMagazynuList();
 
@@ -92,7 +90,7 @@ private slots:
 
     void statystykiDaneDoWykresuOstatnie7();
 
-    void on_Ostatnie7DniButton_clicked();
+    void on_Ostatnie7Dni_Button_clicked();
 
 private:
     Ui::MainWindow *ui;

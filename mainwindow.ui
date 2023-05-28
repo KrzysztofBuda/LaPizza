@@ -30,7 +30,7 @@
     <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>9</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -111,7 +111,7 @@
           <item row="2" column="0">
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="push_Button">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -143,7 +143,7 @@
        </layout>
       </widget>
       <widget class="QWidget" name="stanZamowienia">
-       <widget class="QPushButton" name="wrocButton2">
+       <widget class="QPushButton" name="wroc_Button2">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -266,7 +266,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Witaj w panelu dodawania składników!&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Gdy przyjedzie dostawa dodaj składniki do bazy danych&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="magazynButton">
+       <widget class="QPushButton" name="magazyn_Button">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -279,7 +279,7 @@
          <string>Stan magazynu</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="statystykiButton">
+       <widget class="QPushButton" name="statystyki_Button">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -500,7 +500,7 @@
          </layout>
         </widget>
        </widget>
-       <widget class="QPushButton" name="wrocButton">
+       <widget class="QPushButton" name="wroc_Button">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -513,7 +513,7 @@
          <string>Wróć</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="podsumowanieButton">
+       <widget class="QPushButton" name="podsumowanie_Button">
         <property name="geometry">
          <rect>
           <x>22</x>
@@ -665,7 +665,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="Ostatnie7DniButton">
+       <widget class="QPushButton" name="Ostatnie7Dni_Button">
         <property name="geometry">
          <rect>
           <x>270</x>
