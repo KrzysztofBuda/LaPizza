@@ -30,7 +30,7 @@
     <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -635,10 +635,10 @@
        <widget class="QGraphicsView" name="pizzaTygodnia">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>60</y>
-          <width>256</width>
-          <height>192</height>
+          <x>0</x>
+          <y>31</y>
+          <width>441</width>
+          <height>361</height>
          </rect>
         </property>
        </widget>
@@ -653,6 +653,16 @@
         </property>
         <property name="text">
          <string>Wróć</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="daneDoWykresu">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>401</y>
+          <width>441</width>
+          <height>111</height>
+         </rect>
         </property>
        </widget>
       </widget>
