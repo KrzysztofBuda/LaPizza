@@ -13,6 +13,10 @@
 #include <ctime>
 #include <sstream>
 #include <QMessageBox>
+#include <QtCharts/QChart>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QLegend>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -395,6 +399,10 @@ void MainWindow::on_magazynButton_clicked()
 void MainWindow::on_statystykiButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->statystykiWindow);
+    statystykiDaneDoWykresu();
+
+    // Generuj wykres na podstawie danych
+    generujWykres();
 }
 
 void MainWindow::updateStanMagazynuList()
@@ -431,4 +439,104 @@ void MainWindow::on_wrocButton2_2_clicked()
 {
    ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
+/*
+void MainWindow::statystykiDaneDoWykresu()
+{
+   // Wyczyść listę przed aktualizacją
+   ui->daneDoWykresu->clear();
 
+   // Pobierz dane z bazy danych
+   DatabaseManager db;
+   db.openDatabase();
+
+   // Pobierz listę składników i ich stany
+   QSqlQuery query("SELECT pozycje, wartosc FROM zamowienia");
+   while (query.next()) {
+        QString jakapizza = query.value(0).toString();
+        float suma = query.value(1).toFloat();
+
+        // Wyświetl składnik i stan w QListWidget
+        QString itemText = jakapizza + " - wartosc: " + QString::number(suma);
+        QListWidgetItem* item = new QListWidgetItem(itemText);
+        ui->daneDoWykresu->addItem(item);
+   }
+
+   db.closeDatabase();
+}*/
+
+void MainWindow::statystykiDaneDoWykresu()
+{
+    ui->daneDoWykresu->clear();
+    DatabaseManager db;
+    db.openDatabase();
+    QSqlQuery query("SELECT pozycje, wartosc FROM zamowienia");
+    QMap<QString, int> pizzaCounts;
+    while (query.next()) {
+        QString pozycje = query.value(0).toString();
+        QStringList pizze = pozycje.split(",");
+        for (const QString& pizza : pizze) {
+            QString nazwaPizza = pizza.trimmed();
+            if (pizzaCounts.contains(nazwaPizza)) {
+                pizzaCounts[nazwaPizza] += 1;
+            } else {
+                pizzaCounts[nazwaPizza] = 1;
+            }
+        }
+    }
+    for (auto it = pizzaCounts.begin(); it != pizzaCounts.end(); ++it) {
+        QString pizzaText = it.key() + " - liczba zamówień: " + QString::number(it.value());
+        QListWidgetItem* pizzaItem = new QListWidgetItem(pizzaText);
+        ui->daneDoWykresu->addItem(pizzaItem);
+    }
+    db.closeDatabase();
+}
+
+
+void MainWindow::generujWykres()
+{
+    QMap<QString, int> pizzaCounts = pobierzLiczbePizz();
+    QChart *chart = new QChart();
+    chart->setTitle("Statystyki zamówień pizzy");
+    QPieSeries *series = new QPieSeries();
+    series->setLabelsVisible(true);
+    for (auto it = pizzaCounts.begin(); it != pizzaCounts.end(); ++it) {
+        QString nazwaPizza = it.key();
+        int liczbaSztuk = it.value();
+        series->append(nazwaPizza, liczbaSztuk);
+    }
+    chart->addSeries(series);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignRight);
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(435, 355); // Zwiększenie rozmiaru wykresu
+    chartView->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred); // Ustawienie preferowanego rozmiaru
+    chartView->resize(chartView->sizeHint()); // Zmiana rozmiaru na podstawie sizeHint
+    ui->pizzaTygodnia->setRenderHint(QPainter::Antialiasing);
+    ui->pizzaTygodnia->setScene(new QGraphicsScene(ui->pizzaTygodnia));
+    ui->pizzaTygodnia->scene()->addWidget(chartView);
+}
+
+
+
+QMap<QString, int> MainWindow::pobierzLiczbePizz()
+{
+    QMap<QString, int> pizzaCounts;
+    DatabaseManager db;
+    db.openDatabase();
+    QSqlQuery query("SELECT pozycje FROM zamowienia");
+    while (query.next()) {
+        QString pozycje = query.value(0).toString();
+        QStringList pizze = pozycje.split(",");
+        for (const QString& pizza : pizze) {
+            QString nazwaPizza = pizza.trimmed();
+            if (pizzaCounts.contains(nazwaPizza)) {
+                pizzaCounts[nazwaPizza] += 1;
+            } else {
+                pizzaCounts[nazwaPizza] = 1;
+            }
+        }
+    }
+    db.closeDatabase();
+    return pizzaCounts;
+}

@@ -86,10 +86,15 @@ private slots:
 
     void on_wrocButton2_2_clicked();
 
+    void statystykiDaneDoWykresu();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager* m_dbManager;
     QList<QString> listaZamowien; // Lista zamówień
     QListWidget* listaZamowienWidget; // List Widget dla zamówień
+
+    void generujWykres();
+    QMap<QString, int> pobierzLiczbePizz();
 };
 #endif // MAINWINDOW_H
