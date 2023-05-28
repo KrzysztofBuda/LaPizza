@@ -63,23 +63,23 @@ void MainWindow::on_pushButton_2_clicked()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_push_Button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->menu);
 }
 
-void MainWindow::on_wrocButton_clicked()
+void MainWindow::on_wroc_Button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 
 
-void MainWindow::on_wrocButton2_clicked()
+void MainWindow::on_wroc_Button2_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 
-void MainWindow::on_podsumowanieButton_clicked()
+void MainWindow::on_podsumowanie_Button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->Podsumowanie);
 }
@@ -129,13 +129,6 @@ void MainWindow::on_pushButton_7_clicked()
     listaZamowienWidget->clear();
 }
 
-
-void MainWindow::on_wrocButton3_clicked()
-{
-
-}
-
-
 void MainWindow::on_pushButton_8_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->Podsumowanie);
@@ -165,7 +158,6 @@ void MainWindow::on_pushButton_10_clicked()
     listaZamowienWidget->addItem(QString::fromStdString(namee));
 }
 
-
 void MainWindow::on_pushButton_11_clicked()
 {
     int id=3;
@@ -173,7 +165,6 @@ void MainWindow::on_pushButton_11_clicked()
     string namee = p3.nazwaPizzy(id);
     listaZamowienWidget->addItem(QString::fromStdString(namee));
 }
-
 
 void MainWindow::on_pushButton_13_clicked()
 {
@@ -184,7 +175,7 @@ void MainWindow::on_pushButton_13_clicked()
 }
 
 
-void MainWindow::on_lineEdit_textEdited(const QString &arg1)
+void MainWindow::on_lineEdit_textEdited()
 {
     QLineEdit *lineEdit = ui->lineEdit;
     QIntValidator *validator = new QIntValidator(-999, 999, lineEdit);
@@ -390,20 +381,10 @@ void MainWindow::on_pushButton_20_clicked()
 }
 
 
-void MainWindow::on_magazynButton_clicked()
+void MainWindow::on_magazyn_Button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->magazynWindow);
     updateStanMagazynuList();
-}
-
-
-void MainWindow::on_statystykiButton_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(ui->statystykiWindow);
-    statystykiDaneDoWykresu();
-
-    // Generuj wykres na podstawie danych
-    generujWykres();
 }
 
 void MainWindow::updateStanMagazynuList()
@@ -441,6 +422,15 @@ void MainWindow::on_wrocButton2_2_clicked()
    ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
 
+void MainWindow::on_statystyki_Button_clicked()
+{
+   ui->stackedWidget->setCurrentWidget(ui->statystykiWindow);
+   statystykiDaneDoWykresu();
+
+   // Generuj wykres na podstawie danych
+   generujWykres();
+}
+
 void MainWindow::statystykiDaneDoWykresu()
 {
     ui->daneDoWykresu->clear();
@@ -468,7 +458,6 @@ void MainWindow::statystykiDaneDoWykresu()
     db.closeDatabase();
 }
 
-
 void MainWindow::generujWykres()
 {
     QMap<QString, int> pizzaCounts = pobierzLiczbePizz();
@@ -493,8 +482,6 @@ void MainWindow::generujWykres()
     ui->pizzaTygodnia->setScene(new QGraphicsScene(ui->pizzaTygodnia));
     ui->pizzaTygodnia->scene()->addWidget(chartView);
 }
-
-
 
 QMap<QString, int> MainWindow::pobierzLiczbePizz()
 {
@@ -523,7 +510,7 @@ void MainWindow::on_wrocButton2_3_clicked()
     ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
 
-void MainWindow::on_Ostatnie7DniButton_clicked()
+void MainWindow::on_Ostatnie7Dni_Button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->statystykiWindowOstatnie7);
     statystykiDaneDoWykresuOstatnie7();
@@ -592,8 +579,6 @@ QMap<QString, int> MainWindow::pobierzLiczbePizzOstatnich()
     return pizzaCounts;
 }
 
-
-
 void MainWindow::statystykiDaneDoWykresuOstatnie7()
 {
     ui->daneDoWykresuostatnie7->clear();
@@ -605,4 +590,3 @@ void MainWindow::statystykiDaneDoWykresuOstatnie7()
         ui->daneDoWykresuostatnie7->addItem(pizzaItem);
     }
 }
-
