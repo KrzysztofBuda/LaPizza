@@ -17,6 +17,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QLegend>
+#include <QDate>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -439,37 +440,13 @@ void MainWindow::on_wrocButton2_2_clicked()
 {
    ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
 }
-/*
-void MainWindow::statystykiDaneDoWykresu()
-{
-   // Wyczyść listę przed aktualizacją
-   ui->daneDoWykresu->clear();
-
-   // Pobierz dane z bazy danych
-   DatabaseManager db;
-   db.openDatabase();
-
-   // Pobierz listę składników i ich stany
-   QSqlQuery query("SELECT pozycje, wartosc FROM zamowienia");
-   while (query.next()) {
-        QString jakapizza = query.value(0).toString();
-        float suma = query.value(1).toFloat();
-
-        // Wyświetl składnik i stan w QListWidget
-        QString itemText = jakapizza + " - wartosc: " + QString::number(suma);
-        QListWidgetItem* item = new QListWidgetItem(itemText);
-        ui->daneDoWykresu->addItem(item);
-   }
-
-   db.closeDatabase();
-}*/
 
 void MainWindow::statystykiDaneDoWykresu()
 {
     ui->daneDoWykresu->clear();
     DatabaseManager db;
     db.openDatabase();
-    QSqlQuery query("SELECT pozycje, wartosc FROM zamowienia");
+    QSqlQuery query("SELECT pozycje FROM zamowienia");
     QMap<QString, int> pizzaCounts;
     while (query.next()) {
         QString pozycje = query.value(0).toString();
@@ -540,3 +517,92 @@ QMap<QString, int> MainWindow::pobierzLiczbePizz()
     db.closeDatabase();
     return pizzaCounts;
 }
+
+void MainWindow::on_wrocButton2_3_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->stanZamowienia);
+}
+
+void MainWindow::on_Ostatnie7DniButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->statystykiWindowOstatnie7);
+    statystykiDaneDoWykresuOstatnie7();
+
+    // Generuj wykres na podstawie danych
+    generujWykresZamowienOstatnichDni();
+}
+
+void MainWindow::generujWykresZamowienOstatnichDni()
+{
+    QMap<QString, int> pizzaCounts = pobierzLiczbePizzOstatnich();
+    QChart *chart = new QChart();
+    chart->setTitle("Statystyki zamówień pizzy - Ostatnie 7 dni");
+    QPieSeries *series = new QPieSeries();
+    series->setLabelsVisible(true);
+    for (auto it = pizzaCounts.begin(); it != pizzaCounts.end(); ++it) {
+        QString nazwaPizza = it.key();
+        int liczbaSztuk = it.value();
+        series->append(nazwaPizza, liczbaSztuk);
+    }
+    chart->addSeries(series);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignRight);
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(435, 355);
+    chartView->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    chartView->resize(chartView->sizeHint());
+    ui->pizzaTygodniaostatnie7->setRenderHint(QPainter::Antialiasing);
+    ui->pizzaTygodniaostatnie7->setScene(new QGraphicsScene(ui->pizzaTygodnia));
+    ui->pizzaTygodniaostatnie7->scene()->addWidget(chartView);
+}
+
+QMap<QString, int> MainWindow::pobierzLiczbePizzOstatnich()
+{
+    QMap<QString, int> pizzaCounts;
+    DatabaseManager db;
+    db.openDatabase();
+
+    // Oblicz datę 7 dni wstecz
+    QDate currentDate = QDate::currentDate();
+    QDate dateSevenDaysAgo = currentDate.addDays(-7);
+
+    QSqlQuery query("SELECT pozycje, data_zamowienia FROM zamowienia");
+
+    while (query.next()) {
+        QString pozycje = query.value(0).toString();
+        QString dataZamowieniaText = query.value(1).toString();
+        QDateTime dataZamowienia = QDateTime::fromString(dataZamowieniaText, "d.M.yyyy h:mm");
+
+            // Sprawdź, czy zamówienie jest z ostatnich 7 dni
+            if (dataZamowienia >= QDateTime(dateSevenDaysAgo, QTime(0, 0)) && dataZamowienia <= QDateTime(currentDate, QTime(23, 59))) {
+            QStringList pizze = pozycje.split(",");
+            for (const QString& pizza : pizze) {
+                QString nazwaPizza = pizza.trimmed();
+                if (pizzaCounts.contains(nazwaPizza)) {
+                    pizzaCounts[nazwaPizza] += 1;
+                } else {
+                    pizzaCounts[nazwaPizza] = 1;
+                }
+            }
+        }
+    }
+
+    db.closeDatabase();
+    return pizzaCounts;
+}
+
+
+
+void MainWindow::statystykiDaneDoWykresuOstatnie7()
+{
+    ui->daneDoWykresuostatnie7->clear();
+    QMap<QString, int> pizzaCounts = pobierzLiczbePizzOstatnich();
+
+    for (auto it = pizzaCounts.begin(); it != pizzaCounts.end(); ++it) {
+        QString pizzaText = it.key() + " - liczba zamówień: " + QString::number(it.value());
+        QListWidgetItem* pizzaItem = new QListWidgetItem(pizzaText);
+        ui->daneDoWykresuostatnie7->addItem(pizzaItem);
+    }
+}
+
