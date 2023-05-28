@@ -30,7 +30,7 @@
     <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="pierwszeOkno">
        <property name="mouseTracking">
@@ -645,7 +645,7 @@
        <widget class="QPushButton" name="wrocButton2_2">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>0</x>
           <y>0</y>
           <width>93</width>
           <height>28</height>
@@ -663,6 +663,19 @@
           <width>441</width>
           <height>111</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Ostatnie7DniButton">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>0</y>
+          <width>171</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ostatnie 7 dni</string>
         </property>
        </widget>
       </widget>
@@ -820,10 +833,43 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_9">
+      <widget class="QWidget" name="statystykiWindowOstatnie7">
        <property name="enabled">
         <bool>true</bool>
        </property>
+       <widget class="QListWidget" name="daneDoWykresuostatnie7">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>400</y>
+          <width>441</width>
+          <height>111</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="wrocButton2_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Wróć</string>
+        </property>
+       </widget>
+       <widget class="QGraphicsView" name="pizzaTygodniaostatnie7">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>30</y>
+          <width>441</width>
+          <height>361</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

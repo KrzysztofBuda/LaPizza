@@ -88,6 +88,12 @@ private slots:
 
     void statystykiDaneDoWykresu();
 
+    void on_wrocButton2_3_clicked();
+
+    void statystykiDaneDoWykresuOstatnie7();
+
+    void on_Ostatnie7DniButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager* m_dbManager;
@@ -96,5 +102,7 @@ private:
 
     void generujWykres();
     QMap<QString, int> pobierzLiczbePizz();
+    void generujWykresZamowienOstatnichDni();
+    QMap<QString, int> pobierzLiczbePizzOstatnich();
 };
 #endif // MAINWINDOW_H
