@@ -264,6 +264,7 @@ void MainWindow::on_pushButton_17_clicked()
             if (insertDataQuery.exec()) {
                 qDebug() << "Dane zostały zapisane w tabeli zamowienia";
                 //czyszczenie listy zamówień
+                QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
                 listaZamowienWidget->clear();;
             } else {
                 qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
@@ -280,7 +281,7 @@ void MainWindow::on_pushButton_17_clicked()
     }
 
     db.closeDatabase();
-    QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
+
 }
 
 
@@ -359,6 +360,7 @@ void MainWindow::on_pushButton_20_clicked()
             if (insertDataQuery.exec()) {
                 qDebug() << "Dane zostały zapisane w tabeli zamowienia";
                 //czyszczenie listy zamówień
+                QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
                 listaZamowienWidget->clear();;
             } else {
                 qDebug() << "Błąd zapisywania danych w tabeli zamowienia:" << insertDataQuery.lastError().text();
@@ -376,7 +378,6 @@ void MainWindow::on_pushButton_20_clicked()
 
     db.closeDatabase();
     //wróć do głównej strony + komunikat
-    QMessageBox::information(nullptr, "Gotowe!", "Zamówienie złożone");
     ui->stackedWidget->setCurrentWidget(ui->pierwszeOkno);
 }
 

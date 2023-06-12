@@ -14,7 +14,7 @@ DatabaseManager::DatabaseManager()
 
 bool DatabaseManager::openDatabase()
 {
-    QString lokalizacjadb = "D:/telekomunikacja/Semestry/Moje/semestr 6/Programowanie Obiektowe/Projekt/26.050.2023/LaPizza-main";
+    QString lokalizacjadb = "/Users/bartek/Documents/Programowanie obiektowe/LaPizza-main";
 
     QString appFilePath = QCoreApplication::applicationFilePath();
     QString appDirPath = QFileInfo(appFilePath).absoluteDir().path();
